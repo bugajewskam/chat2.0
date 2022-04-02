@@ -4,12 +4,20 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { IMessage, IRoom, IUser, IChat } from "../interface/interface";
 import { useEffect, useRef, useState } from "react";
-import { Box, Container, FormControl, Button, Grid, TextField } from "@mui/material";
+import {
+  Box,
+  Container,
+  FormControl,
+  Button,
+  Grid,
+  TextField,
+} from "@mui/material";
 import { Message } from "../components/message";
 import { moveMessagePortToContext } from "worker_threads";
 
 import { io, Socket } from "socket.io-client";
 import { borderRadius } from "@mui/system";
+import { RoomSharp } from "@mui/icons-material";
 
 const Index = () => {
   // pojedyńcza wiadomość
@@ -17,8 +25,8 @@ const Index = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [rooms, setRomms]= useState<string[]>(["General", "Test", "Help"]);
-  const [activeRoom, setActiveRoom] = useState<string>('General')
+  const [rooms, setRooms] = useState<string[]>(["General", "Test", "Help"]);
+  const [activeRoom, setActiveRoom] = useState<string>("General");
 
   const handleMessage = (e: any) => setMessage(e.target.value);
 
@@ -54,19 +62,34 @@ const Index = () => {
     () => socket?.close();
   }, []);
 
+  useEffect(() => {
+    if (socket) {
+      setMessages([]);
+      rooms.forEach((room) =>
+        room === activeRoom
+          ? socket.emit("join", activeRoom)
+          : socket.emit("leave", room)
+      );
+    }
+  }, [socket, activeRoom]);
+
   return (
-    <Container maxWidth="sm" sx={{marginTop: 2}}>
+    <Container maxWidth="sm" sx={{ marginTop: 2 }}>
       <Grid container sx={{ height: "70vh" }} spacing={1}>
         <Grid
           item
           xs={3}
-          sx={{ flex: "1 1", overflow: "auto", border: "solid 1px black"}}
-        > 
-            {rooms.map((room)=>
-            room === activeRoom?<Button variant="contained" sx={{width: 100}} >{room}</Button>:
-            <Button sx={{width: 100}}>{room}</Button>
-            )}
-
+          sx={{ flex: "1 1", overflow: "auto", border: "solid 1px black" }}
+        >
+          {rooms.map((room) => (
+            <Button
+              variant={room === activeRoom ? "contained" : "outlined"}
+              sx={{ width: 100 }}
+              onClick={() => setActiveRoom(room)}
+            >
+              {room}
+            </Button>
+          ))}
         </Grid>
         <Grid item xs={9}>
           <Grid
