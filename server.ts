@@ -5,8 +5,8 @@ const { Server } = require("socket.io");
 const { setupHandlers } = require("./socket/server");
 
 const dev = process.env.NODE_ENV !== "production";
-const hostname = "localhost";
-const port = 3000;
+const hostname = "https://mb-chat-2.herokuapp.com/";
+const port = 443;
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
