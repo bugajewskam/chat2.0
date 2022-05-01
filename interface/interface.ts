@@ -2,6 +2,7 @@ export interface IMessage {
   text: string;
   id: number;
   type: string;
+  user?: string;
 }
 export interface IUser {
   name: string;

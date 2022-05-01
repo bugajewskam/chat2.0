@@ -11,13 +11,11 @@ import {
   Button,
   Grid,
   TextField,
+  List,
 } from "@mui/material";
-import { Message } from "../components/message";
-import { moveMessagePortToContext } from "worker_threads";
 
 import { io, Socket } from "socket.io-client";
-import { borderRadius } from "@mui/system";
-import { RoomSharp } from "@mui/icons-material";
+import MessageListItem from "../components/lists-items";
 
 const Index = () => {
   // pojedyńcza wiadomość
@@ -101,21 +99,12 @@ const Index = () => {
               item
               sx={{ flex: "1 1", overflow: "auto", border: "solid 1px black" }}
             >
-              <Box>
+              <List>
                 {messages.map((item) =>
-                  item.type === "my" ? (
-                    <div
-                      style={{ alignSelf: "flex-end", color: "blue" }}
-                      key={item.id}
-                    >
-                      {item.text}
-                    </div>
-                  ) : (
-                    <div key={item.id}>{item.text}</div>
-                  )
+                  <MessageListItem message={item}/>
                 )}
                 <div ref={messagesEndRef} />
-              </Box>
+              </List>
             </Grid>
 
             <Grid item>

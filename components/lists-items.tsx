@@ -1,20 +1,19 @@
+import { IMessage } from "../interface/interface";
 
-import { IMessage, IUser } from "../interface/interface";
+import { ListItem, ListItemText } from "@mui/material";
+import { useRouter } from "next/router";
 
-
-
-
-// import { ListItem, ListItemButton, ListItemAvatar, Avatar, ListItemText } from "@mui/material";
-// import { useRouter } from "next/router";
-// import { PersonData } from "../pages/api/types";
-
-// interface ItemProps {
-//   item: PersonData;
-// }
-
- export default function MessageListItem({  }: IMessage[]) {
-  return <ListItem alignItems="flex-start">
-      <ListItemText primary={message.message}/>
-
-  </ListItem>;
+interface MessageListItemProps {
+  message: IMessage;
+}
+export default function MessageListItem({ message }: MessageListItemProps) {
+  return (
+    <ListItem alignItems="flex-start">
+      <ListItemText
+        style={{ textAlign: message.user ? "right" : "left" }}
+        primary={message.text}
+        secondary={message.user}
+      />
+    </ListItem>
+  );
 }
