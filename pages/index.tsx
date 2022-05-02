@@ -52,7 +52,7 @@ const Index = () => {
 
   // dokumentacja
   useEffect(() => {
-    const newSocket = io(`http://${window.location.hostname}:3000`);
+    const newSocket = io(`https://${window.location.hostname}`);
     newSocket.on("sendMessage", (message) => {
       addMessageToList(message);
     });
