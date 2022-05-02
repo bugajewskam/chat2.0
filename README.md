@@ -15,7 +15,7 @@ Chat application that supports real-time chat functionality with rooms. Made wit
 
 ## Demo
 
-Open in two separate tabs or share a link with someone else! Chat history is not stored anywhere other than Heroku logs.
+Open https://mb-chat-2.herokuapp.com/ in two separate tabs or share a link with someone else! Chat history is not stored anywhere other than possibly internet providers or Heroku logs.
 
 ## Tech-stack
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
